@@ -43,10 +43,10 @@ export class UserComponent implements OnInit{
       .then(user => {
         this.item.subscribe((data: any)=>{
             data.map(ele => {
-                if(ele.site != (null || "")) {
-                    ele.site.map(element => {
+                if(ele.Site != (null || "")) {
+                    ele.Site.map(element => {
                         if((user.email).toUpperCase() == (element.email).toUpperCase()) {
-                            this.themeService.changeTheme(element.colorCode);
+                            this.themeService.changeTheme(element.colourCode);
                         }
                     })
                 }
