@@ -8,72 +8,73 @@ import { FirebaseUserModel } from './../core/user.model';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import * as firebase from 'firebase/app';
 import { NbThemeService } from '@nebular/theme';
-@Component({
-  selector: 'page-user',
-  templateUrl: 'user.component.html'
-})
-export class UserComponent implements OnInit{
+@Component( {
+    selector: 'page-user',
+    templateUrl: 'user.component.html'
+} )
+export class UserComponent implements OnInit {
 
-  user: FirebaseUserModel = new FirebaseUserModel();
-  profileForm: FormGroup;
-  item : any;
-  userIdColor: any = '#ffffff';
-  constructor(
-    public userService: UserService,
-    public authService: AuthService,
-    private route: ActivatedRoute,
-    private location : Location,
-    private fb: FormBuilder,
-    public fireDb: AngularFirestore,
-    private themeService: NbThemeService
-  ) {
-  }
+    user: FirebaseUserModel = new FirebaseUserModel();
+    profileForm: FormGroup;
+    item: any;
+    userIdColor: any = 'corporate';
+    constructor(
+        public userService: UserService,
+        public authService: AuthService,
+        private route: ActivatedRoute,
+        private location: Location,
+        private fb: FormBuilder,
+        public fireDb: AngularFirestore,
+        private themeService: NbThemeService
+    ) {
+    }
 
-  ngOnInit(): void {
-    this.route.data.subscribe(routeData => {
-      let data = routeData['data'];
-      if (data) {
-        this.user = data;
-        this.createForm(this.user.name);
-      }
-    })
+    ngOnInit(): void {
+        this.route.data.subscribe( routeData => {
+            let data = routeData['data'];
+            if ( data ) {
+                this.user = data;
+                this.createForm( this.user.name );
+            }
+        } )
 
-    this.item = this.fireDb.collection('setting').valueChanges();
-    this.userService.getCurrentUser()
-      .then(user => {
-        this.item.subscribe((data: any)=>{
-            data.map(ele => {
-                if(ele.Site != (null || "")) {
-                    ele.Site.map(element => {
-                        if((user.email).toUpperCase() == (element.email).toUpperCase()) {
-                            this.themeService.changeTheme(element.colourCode);
+        this.item = this.fireDb.collection( 'setting' ).valueChanges();
+        this.themeService.changeTheme( 'cosmic' );
+        this.userService.getCurrentUser()
+            .then( user => {
+                this.item.subscribe(( data: any ) => {
+                    data.map( ele => {
+                        if ( ele.Site != ( null || "" ) ) {
+                            ele.Site.map( element => {
+                                if ( ( user.email ).toUpperCase() == ( element.email ).toUpperCase() ) {
+                                    this.themeService.changeTheme( element.colourCode );
+                                }
+                            } )
                         }
-                    })
-                }
-            });
-        })
-      })
-  }
+                    } );
+                } )
+            } )
+    }
 
-  createForm(name) {
-    this.profileForm = this.fb.group({
-      name: [name, Validators.required ]
-    });
-  }
+    createForm( name ) {
+        this.profileForm = this.fb.group( {
+            name: [name, Validators.required]
+        } );
+    }
 
-  save(value){
-    this.userService.updateCurrentUser(value)
-    .then(res => {
-      console.log(res);
-    }, err => console.log(err))
-  }
+    save( value ) {
+        this.userService.updateCurrentUser( value )
+            .then( res => {
+                console.log( res );
+            }, err => console.log( err ) )
+    }
 
-  logout(){
-    this.authService.doLogout()
-    .then((res) => {
-      this.location.back();
-    }, (error) => {
-      console.log("Logout error", error);
-    });
-  }
+    logout() {
+        this.authService.doLogout()
+            .then(( res ) => {
+                this.location.back();
+            }, ( error ) => {
+                console.log( "Logout error", error );
+            } );
+    }
 }
