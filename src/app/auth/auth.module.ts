@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 import { AUTH_COMPONENT_LIST } from "./components";
 import { APPLICATION_GUARD_PROVIDERS } from "./backend/guards";
+import { BrowserModule } from '@angular/platform-browser';
 import { APPLICATION_AUTH_SERVICE_PROVIDERS } from "./backend/services";
 
 import { AUTH_RESOLVER_LIST } from "./backend/resolvers";
@@ -26,6 +27,7 @@ import { RouterModule } from "@angular/router";
         NbCardModule,
         NbActionsModule,
         NbAuthModule,
+        BrowserModule
     ],
     providers: [APPLICATION_AUTH_SERVICE_PROVIDERS, APPLICATION_GUARD_PROVIDERS, AUTH_RESOLVER_LIST],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

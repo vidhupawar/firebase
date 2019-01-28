@@ -7,7 +7,7 @@
 			nbInput fullWidth name="email" id="input-email" pattern=".+@.+..+"
 			placeholder="Email address" autofocus
 			class="input-full-width input-md input-rectangle"
-			formControlName="email">
+			formControlName="email" (input)="errorMessage = ''">
 	</div>
 
 	<div class="form-control-group">
@@ -15,8 +15,13 @@
 			nbInput fullWidth name="password" type="password" id="input-password"
 			placeholder="Password"
 			class="input-full-width input-md input-rectangle"
-			formControlName="password">
+			formControlName="password" (input)="errorMessage = ''">
 	</div>
+	<ng-container >
+		<p class="error-message" *ngIf="errorMessage">
+			{{errorMessage}}
+		</p>
+	</ng-container>
 	<button nbButton fullWidth (click)="tryLogin(loginForm.value)"
 		class="submitted">Sign In</button>
 	<br />

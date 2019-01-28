@@ -43,6 +43,7 @@ export class RegisterComponent {
             .then( res => {
                 console.log( res );
                 this.errorMessage = "";
+                this.router.navigate( ['/user'] );
                 this.successMessage = "Your account has been created";
             }, err => {
                 console.log( err );

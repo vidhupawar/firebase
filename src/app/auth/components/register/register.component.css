@@ -9,3 +9,6 @@
 .mrg-lf-42 {
 	margin-left: 42%;
 }
+.error-message {
+    color: red !important;
+}
