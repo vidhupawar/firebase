@@ -20,29 +20,33 @@ import { FormsModule } from '@angular/forms';
 
 import { NbSidebarModule, NbLayoutModule, NbSidebarService, NbCardModule, NbActionsModule } from '@nebular/theme';
 import { FirestoreSettingsToken } from '@angular/fire/firestore';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { NbAuthService, NbAuthModule, NbTokenService, NbTokenStorage } from "@nebular/auth";
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    UserComponent,
-    RegisterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NbThemeModule.forRoot({ name: 'corporate' }),
-    NbLayoutModule,
-    NbSidebarModule,
-    NbCardModule,
-    NbActionsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-  ],
-  providers: [NbSidebarService, AuthService, UserService, UserResolver, AuthGuard, { provide: FirestoreSettingsToken, useValue: {} }],
-  bootstrap: [AppComponent]
-})
+@NgModule( {
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        UserComponent,
+        RegisterComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NbThemeModule.forRoot( { name: 'corporate' } ),
+        NbLayoutModule,
+        NbSidebarModule,
+        NbCardModule,
+        NbActionsModule,
+        NbAuthModule,
+        AngularFireModule.initializeApp( environment.firebase ),
+        AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+        AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    ],
+    providers: [NbSidebarService, AuthService, UserService, UserResolver, AuthGuard, { provide: FirestoreSettingsToken, useValue: {} }],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+} )
 export class AppModule { }
