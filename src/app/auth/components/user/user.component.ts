@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
             }
         } )
 
-        this.item = this.fireDb.collection( 'setting' ).valueChanges();
+        this.item = this.fireDb.collection( 'Settings' ).valueChanges();
         this.themeService.changeTheme( 'cosmic' );
         this.userService.getCurrentUser()
             .then( user => {
